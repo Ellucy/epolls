@@ -1,8 +1,8 @@
-export const SET_MAIN_LOADING = "SET_MAIN_LOADING";
+export const SET_IS_LOADING = "SET_IS_LOADING";
 
-export function setMainLoading(isLoading) {
+export function setIsLoading(isLoading) {
     return {
-        type: SET_MAIN_LOADING,
+        type: SET_IS_LOADING,
         isLoading
     };
 }

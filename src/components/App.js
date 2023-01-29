@@ -1,15 +1,19 @@
 import '../App.css';
 import { connect } from 'react-redux';
+import { useEffect } from "react";
 import Leaderboard from './Leaderboard';
 import { Routes, Route } from 'react-router-dom';
 import Home from './Home';
+import { initData } from '../actions/calls';
 
-function App(props) {
-  // console.log(props)
+function App({ dispatch, isLoading }) {
+  useEffect(() => {
+    dispatch(initData())
+  }, []);
 
-  // if (props.isLoading) {
-  //   return <div>Loading...</div>
-  // }
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className="App">

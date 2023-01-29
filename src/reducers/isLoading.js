@@ -1,12 +1,9 @@
-import { SET_MAIN_LOADING } from "../actions/isLoading";
+import { SET_IS_LOADING } from "../actions/isLoading";
 
-export default function isLoading(state = { isLoading: true }, action) {
+export default function isLoading(state = false, action) {
     switch (action.type) {
-        case SET_MAIN_LOADING:
-            return {
-                ...state,
-                isMainLoading: action.isLoading,
-            };
+        case SET_IS_LOADING:
+            return action.isLoading;
         default:
             return state;
     }
