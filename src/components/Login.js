@@ -1,28 +1,43 @@
-import { useNavigate } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { connect } from 'react-redux';
 
-function Login(props) {
+function Login({ users }) {
     const navigate = useNavigate();
-    const { pathname, state } = useLocation();
+    const { pathname } = useLocation();
 
     return (
-        <div className="App">
-            <form>
-                <select>
-                    <option>1</option>
-                    <option>2</option>
-                </select>
-                <button onClick={() => {
+        <div className="App padding10">
+            <select
+                value="none"
+                className="padding10"
+                onChange={(event) => {
                     navigate(
                         pathname,
-                        { state: { userId: 123 }, replace: true }
+                        {
+                            state: { userId: event.target.value },
+                            replace: true
+                        }
                     );
-                }}>
-                    Go
-                </button>
-            </form>
+                }}
+            >
+                <option value="none" disabled>
+                    Select active user...
+                </option>
+                {Object.values(users).map((u) => (
+                    <option
+                        key={u.id}
+                        value={u.id}
+                    >
+                        {u.name}
+                    </option>
+                ))}
+            </select>
         </div>
     );
 }
+const mapStateToProps = ({ users }) => ({
+    users: users,
+});
 
-export default Login;
+export default connect(mapStateToProps)(Login);

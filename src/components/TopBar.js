@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 
-// show top bar for every page and check if 
-function TopBar(props) {
+function TopBar({ activeUser }) {
     const { state, pathname } = useLocation();
     const userId = state?.userId;
     return (
@@ -33,7 +32,7 @@ function TopBar(props) {
                 </div>
                 <div className='flex-row'>
                     <div className='avatar-box'>
-                        Avatar
+                        Avatar {activeUser.id}
                     </div>
                     <Link
                         to="/"
@@ -43,9 +42,12 @@ function TopBar(props) {
                     </Link>
                 </div>
             </div>
-        </header >
+        </header>
     );
 }
 
+const mapStateToProps = ({ users }, { userId }) => ({
+    activeUser: users[userId],
+});
 
-export default TopBar;
+export default connect(mapStateToProps)(TopBar);
