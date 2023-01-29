@@ -36,3 +36,29 @@
     transform: rotate(360deg);
   }
 }
+
+.flex-row {
+  display: flex;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.padding10 {
+  padding: 10px;
+}
+
+.link-active {
+ color: #282c34;
+ text-decoration: underline;
+ padding-right: 10px;
+}
+
+.link-not-active {
+  color: #282c34;
+  text-decoration: none;
+  padding-right: 10px;
+}
+
+.avatar-box {padding-right: 10px;}
