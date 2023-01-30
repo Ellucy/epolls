@@ -7,7 +7,7 @@ function TopBar({ activeUser }) {
     return (
         <header>
             <div className='flex-row justify-content-space-between padding10'>
-                <div className='flex-row'>
+                <div className='flex-row align-items-center'>
                     <Link
                         to="/"
                         state={{ userId }}
@@ -32,14 +32,16 @@ function TopBar({ activeUser }) {
                 </div>
                 <div className='flex-row'>
                     <div className='avatar-box'>
-                        Avatar {activeUser.id}
+                        <img src={activeUser.avatarURL} alt={`Avatar of ${activeUser.id}`} className="avatar-small" />
+                        <span className='margin-right10'>{activeUser.name}</span>
+                        <Link
+                            to="/"
+                            className='link-not-active'
+                        >
+                            Logout
+                        </Link>
                     </div>
-                    <Link
-                        to="/"
-                        className='link-not-active'
-                    >
-                        Logout
-                    </Link>
+
                 </div>
             </div>
         </header>

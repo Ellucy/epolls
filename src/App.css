@@ -49,6 +49,10 @@
   padding: 10px;
 }
 
+.margin-right10 {
+  margin-right: 10px;
+}
+
 .link-active {
  color: #282c34;
  text-decoration: underline;
@@ -61,4 +65,50 @@
   padding-right: 10px;
 }
 
-.avatar-box {padding-right: 10px;}
+.avatar-box {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  text-transform: uppercase;
+  margin: 35px auto;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.29);
+  cursor: pointer;
+  background: #fff;
+  font-size: 16px;
+  width: 250px;
+  position: relative;
+}
+
+.btn:hover {
+  border-color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+
+.btn:focus {
+  outline: 0;
+  font-weight: 700;
+  border-width: 2px;
+}
+
+.center {
+  text-align: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.avatar {
+  height: 50px;
+  border-radius: 25px;
+  margin: 10px;
+}
+
+.avatar-small {
+  height: 30px;
+  border-radius: 25px;
+  margin: 10px;
+}
