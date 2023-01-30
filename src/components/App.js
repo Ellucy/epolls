@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import { useEffect } from "react";
-import { useLocation, Link, Routes, Route } from 'react-router-dom';
+import { useLocation, useParams, Routes, Route } from 'react-router-dom';
 import '../App.css';
 import Leaderboard from './Leaderboard';
 import Home from './Home';
 import Poll from './Poll';
+import NotFound from './NotFound';
 import { initData } from '../actions/calls';
 
 function App({ dispatch, isLoading }) {
@@ -25,7 +26,7 @@ function App({ dispatch, isLoading }) {
         <Route path="/" exact element={<Home userId={userId} />} />
         <Route path="/leaderboard" element={<Leaderboard userId={userId} />} />
         <Route path="/questions/:question_id" element={<Poll userId={userId} />} />
-        <Route path='*' element={<div>404 - requested page not found.</div>} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </div>
   );

@@ -42,7 +42,7 @@ function TopBar({ activeUser }) {
                         )}
                         <Link
                             to="/"
-                            className='link-not-active' s
+                            className='link-not-active'
                         >
                             Logout
                         </Link>

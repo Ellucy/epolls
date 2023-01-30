@@ -1,38 +1,137 @@
 import { connect } from 'react-redux';
-import { useEffect } from "react";
-import { useLocation, Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useLocation, useParams } from 'react-router-dom';
 import WithAuthCheck from './WithAuthCheck'
 import TopBar from './TopBar';
+import { saveQuestionAnswer } from '../actions/calls';
+import NotFound from './NotFound';
 
-function Poll({ userId, questions, users }) {
+function Poll({ userId, questions, users, dispatch }) {
     const loc = useLocation();
     // const userId = state?.userId;
     let { question_id } = useParams();
+
+    const [poll, setPoll] = useState({});
+    const [notFound, setNotFound] = useState(false);
     useEffect(() => {
-        console.log(questions[question_id])
-    }, [question_id]);
+        if (!(questions && question_id)) {
+            setPoll({});
+            return;
+        }
+
+        if (!questions[question_id]) {
+            setNotFound(true);
+            return;
+        }
+
+        setNotFound(false);
+
+        const q = questions[question_id];
+        console.log(q);
+        if (q.optionOne.votes.includes(userId)
+            || q.optionTwo.votes.includes(userId)) {
+            const oneCount = q.optionOne.votes.length;
+            const twoCount = q.optionTwo.votes.length;
+            const voteCount = oneCount + twoCount;
+            const onePerc = (voteCount ? 100 * (oneCount / voteCount) : 0).toFixed(0);
+            const twoPerc = (voteCount ? 100 * (twoCount / voteCount) : 0).toFixed(0);
+            setPoll({
+                q,
+                oneCount,
+                twoCount,
+                onePerc,
+                twoPerc,
+                isAnswered: true,
+                optionOneChosen: q.optionOne.votes.includes(userId),
+                optionTwoChosen: q.optionTwo.votes.includes(userId),
+            })
+            console.log('IS ANSEWERED', q)
+            return;
+        }
+
+        setPoll({ isNotAnswered: true, q })
+    }, [question_id, questions]);
+
+    if (notFound) {
+        return <NotFound />;
+    }
+
     return (
         <WithAuthCheck>
             <TopBar userId={userId} />
             <div className="App padding10">
-                {questions && questions[question_id] && (
+                {poll.isAnswered && (
                     <div>
-                        <h2>Poll by {questions[question_id].author}</h2>
+                        <h2>Poll by {poll.q.author}</h2>
                         <div>Large avatar</div>
                         <h2>Would You Rather</h2>
                         <div className="flex-row justify-content-space-around">
                             <div className="flex-col">
-                                <span>{questions[question_id].optionOne.text}</span>
+                                <span
+                                    className={poll.optionOneChosen ? "font-weight-bold text-decoration-underline" : ""}
+                                >
+                                    {poll.q.optionOne.text}
+                                </span>
+                                <span>
+                                    Votes: {poll.oneCount}
+                                </span>
+                                <span>
+                                    {poll.onePerc}%
+                                </span>
+                            </div>
+                            <div className="flex-col">
+                                <span
+                                    className={poll.optionTwoChosen ? "font-weight-bold text-decoration-underline" : ""}
+                                >
+                                    {poll.q.optionTwo.text}
+                                </span>
+                                <span>
+                                    Votes: {poll.twoCount}
+                                </span>
+                                <span>
+                                    {poll.twoPerc}%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {poll.isNotAnswered && (
+                    <div>
+                        <h2>Poll by {poll.q.author}</h2>
+                        <div>Large avatar</div>
+                        <h2>Would You Rather</h2>
+                        <div className="flex-row justify-content-space-around">
+                            <div className="flex-col">
+                                <span>{poll.q.optionOne.text}</span>
                                 <button
                                     className="btn"
+                                    onClick={() => {
+                                        dispatch(
+                                            saveQuestionAnswer(
+                                                {
+                                                    authedUser: userId,
+                                                    qid: question_id,
+                                                    answer: 'optionOne',
+                                                }))
+                                    }}
                                 >
                                     Click
                                 </button>
                             </div>
                             <div className="flex-col">
-                                <span>{questions[question_id].optionTwo.text}</span>
+                                <span>{poll.q.optionTwo.text}</span>
                                 <button
                                     className="btn"
+                                    onClick={() => {
+                                        dispatch(
+                                            saveQuestionAnswer(
+                                                {
+                                                    authedUser: userId,
+                                                    qid: question_id,
+                                                    answer: 'optionTwo',
+                                                }))
+                                    }}
                                 >
                                     Click
                                 </button>
@@ -40,18 +139,13 @@ function Poll({ userId, questions, users }) {
                         </div>
                     </div>
                 )}
+
             </div>
         </WithAuthCheck>
     );
 }
 
 const mapStateToProps = ({ questions, users }, { userId }) => {
-    // const { state } = useLocation();
-    // const answeredQuestions = Object.values(questions)
-    //     .filter(({ optionOne, optionTwo }) => optionOne.votes.includes(userId) || optionTwo.votes.includes(userId));
-
-    // const newQuestions = Object.values(questions)
-    //     .filter(({ optionOne, optionTwo }) => !(optionOne.votes.includes(userId) || optionTwo.votes.includes(userId)));
     return {
         userId, questions, users
     };

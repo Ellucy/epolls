@@ -18,3 +18,12 @@ export function initData() {
         dispatch(setIsLoading(false));
     };
 }
+
+export function saveQuestionAnswer(question) {
+    return async (dispatch) => {
+        await _saveQuestionAnswer(question);
+        const questions = await _getQuestions();
+        dispatch(setQuestions(questions));
+
+    };
+}
