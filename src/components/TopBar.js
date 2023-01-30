@@ -31,16 +31,24 @@ function TopBar({ activeUser }) {
                     </Link>
                 </div>
                 <div className='flex-row'>
+
+
                     <div className='avatar-box'>
-                        <img src={activeUser.avatarURL} alt={`Avatar of ${activeUser.id}`} className="avatar-small" />
-                        <span className='margin-right10'>{activeUser.name}</span>
+                        {activeUser?.avatarURL && (
+                            <img src={activeUser.avatarURL} alt={`Avatar of ${activeUser.id}`} className="avatar-small" />
+                        )}
+                        {activeUser?.name && (
+                            <span className='margin-right10'>{activeUser.name}</span>
+                        )}
                         <Link
                             to="/"
-                            className='link-not-active'
+                            className='link-not-active' s
                         >
                             Logout
                         </Link>
                     </div>
+
+
 
                 </div>
             </div>

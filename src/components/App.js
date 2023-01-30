@@ -1,12 +1,15 @@
-import '../App.css';
 import { connect } from 'react-redux';
 import { useEffect } from "react";
+import { useLocation, Link, Routes, Route } from 'react-router-dom';
+import '../App.css';
 import Leaderboard from './Leaderboard';
-import { Routes, Route } from 'react-router-dom';
 import Home from './Home';
 import { initData } from '../actions/calls';
 
 function App({ dispatch, isLoading }) {
+  const { state } = useLocation();
+  const userId = state?.userId;
+
   useEffect(() => {
     dispatch(initData())
   }, []);
@@ -18,8 +21,8 @@ function App({ dispatch, isLoading }) {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" exact element={<Home />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/" exact element={<Home userId={userId} />} />
+        <Route path="/leaderboard" element={<Leaderboard userId={userId} />} />
         <Route path='*' element={<div>404 - requested page not found.</div>} />
       </Routes>
     </div>
