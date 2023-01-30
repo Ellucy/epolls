@@ -7,22 +7,22 @@ import TopBar from './TopBar';
 function Poll({ userId, questions, users }) {
     const loc = useLocation();
     // const userId = state?.userId;
-    let { pollId } = useParams();
+    let { question_id } = useParams();
     useEffect(() => {
-        console.log(questions[pollId])
-    }, [pollId]);
+        console.log(questions[question_id])
+    }, [question_id]);
     return (
         <WithAuthCheck>
             <TopBar userId={userId} />
             <div className="App padding10">
-                {questions && questions[pollId] && (
+                {questions && questions[question_id] && (
                     <div>
-                        <h2>Poll by {questions[pollId].author}</h2>
+                        <h2>Poll by {questions[question_id].author}</h2>
                         <div>Large avatar</div>
                         <h2>Would You Rather</h2>
                         <div className="flex-row justify-content-space-around">
                             <div className="flex-col">
-                                <span>{questions[pollId].optionOne.text}</span>
+                                <span>{questions[question_id].optionOne.text}</span>
                                 <button
                                     className="btn"
                                 >
@@ -30,7 +30,7 @@ function Poll({ userId, questions, users }) {
                                 </button>
                             </div>
                             <div className="flex-col">
-                                <span>{questions[pollId].optionTwo.text}</span>
+                                <span>{questions[question_id].optionTwo.text}</span>
                                 <button
                                     className="btn"
                                 >

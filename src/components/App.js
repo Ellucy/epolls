@@ -24,7 +24,7 @@ function App({ dispatch, isLoading }) {
       <Routes>
         <Route path="/" exact element={<Home userId={userId} />} />
         <Route path="/leaderboard" element={<Leaderboard userId={userId} />} />
-        <Route path="/poll/:pollId" element={<Poll userId={userId} />} />
+        <Route path="/questions/:question_id" element={<Poll userId={userId} />} />
         <Route path='*' element={<div>404 - requested page not found.</div>} />
       </Routes>
     </div>

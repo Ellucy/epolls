@@ -18,7 +18,7 @@ function Home({ userId, newQuestions, answeredQuestions }) {
                         <button
                             className='btn'
                             onClick={() => {
-                                navigate(`/poll/${q.id}`, { state: { userId } });
+                                navigate(`/questions/${q.id}`, { state: { userId } });
                             }}
                         >
                             Show
