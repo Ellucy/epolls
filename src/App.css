@@ -133,3 +133,9 @@
 .font-size-smaller {
   font-size: smaller;
 }
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

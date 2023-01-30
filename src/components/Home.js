@@ -11,27 +11,41 @@ function Home({ userId, newQuestions, answeredQuestions }) {
             <TopBar userId={userId} />
             <div className="App">
                 <h2>New questions</h2>
-                {newQuestions.map((q) => (
-                    <div key={q.id} className="padding10">
-                        <div className="font-weight-bold">{q.author}</div>
-                        <div className="font-size-smaller">{formatDate(q.timestamp)}</div>
-                        <button
-                            className='btn'
-                            onClick={() => {
-                                navigate(`/questions/${q.id}`, { state: { userId } });
-                            }}
-                        >
-                            Show
-                        </button>
-                    </div>
-                ))}
+                <div className="flex-container">
+                    {newQuestions.map((q) => (
+                        <div key={q.id} className="padding10">
+                            <div className="font-weight-bold">{q.author}</div>
+                            <div className="font-size-smaller">{formatDate(q.timestamp)}</div>
+                            <button
+                                className='btn'
+                                onClick={() => {
+                                    navigate(`/questions/${q.id}`, { state: { userId } });
+                                }}
+                            >
+                                Show
+                            </button>
+                        </div>
+                    ))}
+                </div>
+
                 <h2>Done</h2>
-                {answeredQuestions.map((q) => (
-                    <div key={q.id} className="padding10">
-                        <div className="font-weight-bold">{q.author}</div>
-                        <div className="font-size-smaller">{formatDate(q.timestamp)}</div>
-                    </div>
-                ))}
+                <div className="flex-container">
+                    {answeredQuestions.map((q) => (
+                        <div key={q.id} className="padding10">
+                            <div className="font-weight-bold">{q.author}</div>
+                            <div className="font-size-smaller">{formatDate(q.timestamp)}</div>
+                            <button
+                                className='btn'
+                                onClick={() => {
+                                    navigate(`/questions/${q.id}`, { state: { userId } });
+                                }}
+                            >
+                                Show
+                            </button>
+                        </div>
+                    ))}
+                </div>
+
             </div>
         </WithAuthCheck>
     );
