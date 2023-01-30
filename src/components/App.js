@@ -4,6 +4,7 @@ import { useLocation, Link, Routes, Route } from 'react-router-dom';
 import '../App.css';
 import Leaderboard from './Leaderboard';
 import Home from './Home';
+import Poll from './Poll';
 import { initData } from '../actions/calls';
 
 function App({ dispatch, isLoading }) {
@@ -23,6 +24,7 @@ function App({ dispatch, isLoading }) {
       <Routes>
         <Route path="/" exact element={<Home userId={userId} />} />
         <Route path="/leaderboard" element={<Leaderboard userId={userId} />} />
+        <Route path="/poll/:pollId" element={<Poll userId={userId} />} />
         <Route path='*' element={<div>404 - requested page not found.</div>} />
       </Routes>
     </div>

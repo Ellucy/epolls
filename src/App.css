@@ -41,8 +41,17 @@
   display: flex;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
 .justify-content-space-between {
   justify-content: space-between;
+}
+
+.justify-content-space-around {
+  justify-content: space-around;
 }
 
 .padding10 {
