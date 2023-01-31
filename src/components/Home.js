@@ -10,42 +10,45 @@ function Home({ userId, newQuestions, answeredQuestions }) {
         <WithAuthCheck>
             <TopBar userId={userId} />
             <div className="App">
-                <h2>New questions</h2>
-                <div className="flex-container">
-                    {newQuestions.map((q) => (
-                        <div key={q.id} className="padding10">
-                            <div className="font-weight-bold">{q.author}</div>
-                            <div className="font-size-smaller">{formatDate(q.timestamp)}</div>
-                            <button
-                                className='btn'
-                                onClick={() => {
-                                    navigate(`/questions/${q.id}`, { state: { userId } });
-                                }}
-                            >
-                                Show
-                            </button>
-                        </div>
-                    ))}
+                <div className='new-done-polls'>
+                    <div className='poll-container'>New questions</div>
+                    <div className="flex-container">
+                        {newQuestions.map((q) => (
+                            <div key={q.id} className="question-block">
+                                <div className="font-weight-bold">{q.author}</div>
+                                <div className="font-size-smaller">{formatDate(q.timestamp)}</div>
+                                <button
+                                    className='home-btn'
+                                    onClick={() => {
+                                        navigate(`/questions/${q.id}`, { state: { userId } });
+                                    }}
+                                >
+                                    Show
+                                </button>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
-                <h2>Done</h2>
-                <div className="flex-container">
-                    {answeredQuestions.map((q) => (
-                        <div key={q.id} className="padding10">
-                            <div className="font-weight-bold">{q.author}</div>
-                            <div className="font-size-smaller">{formatDate(q.timestamp)}</div>
-                            <button
-                                className='btn'
-                                onClick={() => {
-                                    navigate(`/questions/${q.id}`, { state: { userId } });
-                                }}
-                            >
-                                Show
-                            </button>
-                        </div>
-                    ))}
+                <div className='new-done-polls'>
+                    <div className='poll-container'>Done</div>
+                    <div className="flex-container">
+                        {answeredQuestions.map((q) => (
+                            <div key={q.id} className="question-block">
+                                <div className="font-weight-bold">{q.author}</div>
+                                <div className="font-size-smaller">{formatDate(q.timestamp)}</div>
+                                <button
+                                    className='home-btn'
+                                    onClick={() => {
+                                        navigate(`/questions/${q.id}`, { state: { userId } });
+                                    }}
+                                >
+                                    Show
+                                </button>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-
             </div>
         </WithAuthCheck>
     );

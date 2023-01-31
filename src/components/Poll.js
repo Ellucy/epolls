@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import WithAuthCheck from './WithAuthCheck'
 import TopBar from './TopBar';
 import { saveQuestionAnswer } from '../actions/calls';
 import NotFound from './NotFound';
 
 function Poll({ userId, questions, users, dispatch }) {
-    const loc = useLocation();
-    // const userId = state?.userId;
     let { question_id } = useParams();
 
     const [poll, setPoll] = useState({});
     const [notFound, setNotFound] = useState(false);
+    const [author, setAuthor] = useState(null);
+
     useEffect(() => {
         if (!(questions && question_id)) {
             setPoll({});
@@ -27,7 +27,7 @@ function Poll({ userId, questions, users, dispatch }) {
         setNotFound(false);
 
         const q = questions[question_id];
-        console.log(q);
+
         if (q.optionOne.votes.includes(userId)
             || q.optionTwo.votes.includes(userId)) {
             const oneCount = q.optionOne.votes.length;
@@ -44,13 +44,22 @@ function Poll({ userId, questions, users, dispatch }) {
                 isAnswered: true,
                 optionOneChosen: q.optionOne.votes.includes(userId),
                 optionTwoChosen: q.optionTwo.votes.includes(userId),
-            })
-            console.log('IS ANSEWERED', q)
+            });
             return;
         }
 
         setPoll({ isNotAnswered: true, q })
     }, [question_id, questions]);
+
+    useEffect(() => {
+        if (users && poll?.q?.author && users[poll.q.author]) {
+            const authorId = poll.q.author;
+            const author = users[authorId];
+            setAuthor(author);
+            return;
+        }
+        setAuthor(null);
+    }, [users, poll]);
 
     if (notFound) {
         return <NotFound />;
@@ -63,12 +72,16 @@ function Poll({ userId, questions, users, dispatch }) {
                 {poll.isAnswered && (
                     <div>
                         <h2>Poll by {poll.q.author}</h2>
-                        <div>Large avatar</div>
+                        <div>
+                            {author?.avatarURL && (
+                                <img src={author.avatarURL} alt={`Avatar of ${author.id}`} className="big-avatar" />
+                            )}
+                        </div>
                         <h2>Would You Rather</h2>
                         <div className="flex-row justify-content-space-around">
-                            <div className="flex-col">
+                            <div className="flex-col-border">
                                 <span
-                                    className={poll.optionOneChosen ? "font-weight-bold text-decoration-underline" : ""}
+                                    className={poll.optionOneChosen ? "font-weight-bold text-decoration-underline color-green" : ""}
                                 >
                                     {poll.q.optionOne.text}
                                 </span>
@@ -79,9 +92,9 @@ function Poll({ userId, questions, users, dispatch }) {
                                     {poll.onePerc}%
                                 </span>
                             </div>
-                            <div className="flex-col">
+                            <div className="flex-col-border">
                                 <span
-                                    className={poll.optionTwoChosen ? "font-weight-bold text-decoration-underline" : ""}
+                                    className={poll.optionTwoChosen ? "font-weight-bold text-decoration-underline color-green" : ""}
                                 >
                                     {poll.q.optionTwo.text}
                                 </span>
@@ -99,11 +112,15 @@ function Poll({ userId, questions, users, dispatch }) {
                 {poll.isNotAnswered && (
                     <div>
                         <h2>Poll by {poll.q.author}</h2>
-                        <div>Large avatar</div>
+                        <div>
+                            {author?.avatarURL && (
+                                <img src={author.avatarURL} alt={`Avatar of ${author.id}`} className="big-avatar" />
+                            )}
+                        </div>
                         <h2>Would You Rather</h2>
                         <div className="flex-row justify-content-space-around">
                             <div className="flex-col">
-                                <span>{poll.q.optionOne.text}</span>
+                                <span className="poll-question">{poll.q.optionOne.text}</span>
                                 <button
                                     className="btn"
                                     onClick={() => {
@@ -120,7 +137,7 @@ function Poll({ userId, questions, users, dispatch }) {
                                 </button>
                             </div>
                             <div className="flex-col">
-                                <span>{poll.q.optionTwo.text}</span>
+                                <span className="poll-question">{poll.q.optionTwo.text}</span>
                                 <button
                                     className="btn"
                                     onClick={() => {
@@ -147,7 +164,9 @@ function Poll({ userId, questions, users, dispatch }) {
 
 const mapStateToProps = ({ questions, users }, { userId }) => {
     return {
-        userId, questions, users
+        userId,
+        questions,
+        users,
     };
 };
 

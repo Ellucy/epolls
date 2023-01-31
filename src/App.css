@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: arial, sans-serif;
 }
 
 .App-logo {
@@ -44,6 +45,16 @@
 .flex-col {
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  width: 45%;
+}
+
+.flex-col-border {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 45%;
+  border: 1px solid #ccc;
 }
 
 .justify-content-space-between {
@@ -79,16 +90,21 @@
   align-items: center;
 }
 
+.poll-question {
+  border: 1px solid rgba(0, 0, 0, 0.29);
+  padding: 10px 30px 10px 30px;
+  font-size: 14px;
+}
+
 .btn {
-  text-transform: uppercase;
-  margin: 35px auto;
+  width: 100%;
   padding: 10px;
   border: 1px solid rgba(0, 0, 0, 0.29);
   cursor: pointer;
-  background: #fff;
+  background: rgb(58, 174, 137);
   font-size: 16px;
-  width: 250px;
   position: relative;
+  color: white;
 }
 
 .btn:hover {
@@ -96,9 +112,33 @@
   text-decoration: none;
 }
 
-.btn:focus {
+.btn:active {
   outline: 0;
-  font-weight: 700;
+  font-weight: 300;
+  border-width: 2px;
+}
+
+.home-btn {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgb(58, 174, 137);
+  cursor: pointer;
+  background: white;
+  font-size: 16px;
+  position: relative;
+  color: rgb(58, 174, 137);
+  padding: 10px 70px;
+  margin-top: 20px;
+}
+
+.home-btn:hover {
+  border-color: rgb(34, 123, 95);
+  text-decoration: none;
+}
+
+.home-btn:active {
+  outline: 0;
+  font-weight: 300;
   border-width: 2px;
 }
 
@@ -112,7 +152,13 @@
 
 .avatar {
   height: 50px;
-  border-radius: 25px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+.big-avatar {
+  height: 300px;
+  border-radius: 50%;
   margin: 10px;
 }
 
@@ -130,6 +176,10 @@
   text-decoration: underline;
 }
 
+.color-green {
+  color: rgb(58, 174, 137);
+}
+
 .font-size-smaller {
   font-size: smaller;
 }
@@ -137,7 +187,10 @@
 .flex-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-collapse: collapse;
 }
 
 .table-container {
@@ -145,6 +198,12 @@
   background: none;
   display: flex;
   width: 100%;
+}
+
+.question-block {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 5px;
 }
 
 .leaderboard-results {
@@ -186,11 +245,85 @@
 .display-avatar {
   height: 30px;
   margin: 5px;
-  border-radius: 25px;
+  border-radius: 50%;
   padding-right: 10px;
 }
 
 .user-username {
   padding-top: 5px;
   font-size: 14px;
+}
+
+.poll-container {
+  font-size: 20px;
+  border: 1px solid #ccc;
+  margin: -1px 0px;
+  padding: 10px;
+}
+.new-done-polls {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.new-poll-container h2 {
+  color: #525252;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-poll-container p {
+  color: #aba9a9;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.choose-option {
+  color: #525252;
+}
+
+.cleate-new-poll {
+  padding: 20px;
+}
+
+.submit-button {
+  background-color: #f8f9fa;
+  border: 1px solid #f8f9fa;
+  border-radius: 5px;
+  color: #757b80;
+  cursor: pointer;
+  font-family: arial, sans-serif;
+  font-size: 14px;
+  height: 36px;
+  line-height: 27px;
+  min-width: 54px;
+  padding: 0 20px;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: pre;
+  margin: 20px;
+}
+.submit-button:hover {
+  border-color: #dadce0;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 1px;
+  color: #3c4043;
+}
+
+.submit-button:active {
+  border-color: #525252;
+  outline: none;
+}
+
+.add-option {
+  width: 70%;
+  padding: 10px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
