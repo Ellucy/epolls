@@ -19,11 +19,19 @@ export function initData() {
     };
 }
 
-export function saveQuestionAnswer(question) {
+export function saveQuestionAnswer(questionsAnswer) {
     return async (dispatch) => {
-        await _saveQuestionAnswer(question);
+        await _saveQuestionAnswer(questionsAnswer);
         const questions = await _getQuestions();
         dispatch(setQuestions(questions));
 
+    };
+}
+
+export function saveQuestion(question) {
+    return async (dispatch) => {
+        await _saveQuestion(question);
+        const questions = await _getQuestions();
+        dispatch(setQuestions(questions));
     };
 }

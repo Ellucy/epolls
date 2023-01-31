@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import WithAuthCheck from './WithAuthCheck';
 import TopBar from './TopBar';
 import { formatDate } from '../utils'
@@ -56,10 +56,12 @@ function Home({ userId, newQuestions, answeredQuestions }) {
 
 const mapStateToProps = ({ questions }, { userId }) => {
     const answeredQuestions = Object.values(questions)
-        .filter(({ optionOne, optionTwo }) => optionOne.votes.includes(userId) || optionTwo.votes.includes(userId));
+        .filter(({ optionOne, optionTwo }) => optionOne.votes.includes(userId) || optionTwo.votes.includes(userId))
+        .sort((a, b) => a.timestamp < b.timestamp ? 1 : -1);
 
     const newQuestions = Object.values(questions)
-        .filter(({ optionOne, optionTwo }) => !(optionOne.votes.includes(userId) || optionTwo.votes.includes(userId)));
+        .filter(({ optionOne, optionTwo }) => !(optionOne.votes.includes(userId) || optionTwo.votes.includes(userId)))
+        .sort((a, b) => a.timestamp < b.timestamp ? 1 : -1);
 
     return { userId, newQuestions, answeredQuestions };
 };
