@@ -4,7 +4,7 @@ import { useLocation, Link } from 'react-router-dom';
 import WithAuthCheck from './WithAuthCheck'
 import TopBar from './TopBar';
 
-function Leaderboard(props) {
+function Leaderboard({ usersWithStats }) {
     const { state } = useLocation();
     const userId = state?.userId;
     return (
@@ -22,84 +22,21 @@ function Leaderboard(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className="user-container">
-                                    <div className="display-avatar-username">
-                                        <img className="display-avatar" src="https://cdn.pixabay.com/photo/2014/04/03/10/32/user-310807__340.png" alt="avatar" />
-                                        <div className="user-data">
-                                            <div className="user-name">Centro comercial Moctezuma</div>
-                                            <div className="user-username">username</div>
+                            {usersWithStats.map((u) => (
+                                <tr key={u.id}>
+                                    <td className="user-container">
+                                        <div className="display-avatar-username">
+                                            <img className="display-avatar" src={u.avatarURL} alt="avatar" />
+                                            <div className="user-data">
+                                                <div className="user-name">{u.name}</div>
+                                                <div className="user-username">{u.id}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td className="show-amount-of-polls">1</td>
-                                <td className="show-amount-of-polls">8</td>
-                            </tr>
-                            <tr>
-                                <td className="user-container">
-                                    <div className="display-avatar-username">
-                                        <img className="display-avatar" src="https://cdn.pixabay.com/photo/2014/04/03/10/32/user-310807__340.png" alt="avatar" />
-                                        <div className="user-data">
-                                            <div className="user-name">Centro comercial Moctezuma</div>
-                                            <div className="user-username">username</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="show-amount-of-polls">2</td>
-                                <td className="show-amount-of-polls">5</td>
-                            </tr>
-                            <tr>
-                                <td className="user-container">
-                                    <div className="display-avatar-username">
-                                        <img className="display-avatar" src="https://cdn.pixabay.com/photo/2014/04/03/10/32/user-310807__340.png" alt="avatar" />
-                                        <div className="user-data">
-                                            <div className="user-name">Eleri Mets</div>
-                                            <div className="user-username">mets.eleri@gmail.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="show-amount-of-polls">5</td>
-                                <td className="show-amount-of-polls">3</td>
-                            </tr>
-                            <tr>
-                                <td className="user-container">
-                                    <div className="display-avatar-username">
-                                        <img className="display-avatar" src="https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375__340.png" alt="avatar" />
-                                        <div className="user-data">
-                                            <div className="user-name">Jack Doe</div>
-                                            <div className="user-username">sjejfr@gmail.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="show-amount-of-polls">1</td>
-                                <td className="show-amount-of-polls">6</td>
-                            </tr>
-                            <tr>
-                                <td className="user-container">
-                                    <div className="display-avatar-username">
-                                        <img className="display-avatar" src="https://cdn.pixabay.com/photo/2014/04/03/10/32/user-310807__340.png" alt="avatar" />
-                                        <div className="user-data">
-                                            <div className="user-name">Centro comercial Moctezuma</div>
-                                            <div className="user-username">username</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="show-amount-of-polls">3</td>
-                                <td className="show-amount-of-polls">1</td>
-                            </tr>
-                            <tr>
-                                <td className="user-container">
-                                    <div className="display-avatar-username">
-                                        <img className="display-avatar" src="https://cdn.pixabay.com/photo/2014/04/03/10/32/user-310807__340.png" alt="avatar" />
-                                        <div className="user-data">
-                                            <div className="user-name">Centro comercial Moctezuma</div>
-                                            <div className="user-username">username</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="show-amount-of-polls">1</td>
-                                <td className="show-amount-of-polls">3</td>
-                            </tr>
+                                    </td>
+                                    <td className="show-amount-of-polls">{u.questionsAnswered}</td>
+                                    <td className="show-amount-of-polls">{u.questionsCreated}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
@@ -111,5 +48,34 @@ function Leaderboard(props) {
     );
 }
 
+const mapStateToProps = ({ questions, users }) => {
+    const questionsByUsers = Object
+        .values(questions)
+        .reduce((acc, curr) => {
+            if (acc[curr.author]) {
+                acc[curr.author].push(curr)
+                return acc;
+            }
+            acc[curr.author] = [];
+            acc[curr.author].push(curr);
+            return acc;
+        }, {});
 
-export default Leaderboard;
+    const usersWithStats = Object
+        .values(users)
+        .map((u) => {
+            const userId = u.id;
+            u.questionsCreated = questionsByUsers[u.id]?.length || 0;
+            u.questionsAnswered = Object.values(questions)
+                .filter(({ optionOne, optionTwo }) => optionOne.votes.includes(userId) || optionTwo.votes.includes(userId))
+                .length;
+            u.totalQ = u.questionsCreated + u.questionsAnswered;
+            return u;
+        })
+        .sort((a, b) => a.totalQ < b.totalQ ? 1 : -1);
+    return {
+        usersWithStats,
+    };
+};
+
+export default connect(mapStateToProps)(Leaderboard);
