@@ -63,9 +63,9 @@
 }
 
 .link-active {
- color: #282c34;
- text-decoration: underline;
- padding-right: 10px;
+  color: #282c34;
+  text-decoration: underline;
+  padding-right: 10px;
 }
 
 .link-not-active {
@@ -138,4 +138,59 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.table-container {
+  align-items: center;
+  background: none;
+  display: flex;
+  width: 100%;
+}
+
+.leaderboard-results {
+  text-align: left;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+}
+.leaderboard-results thead th {
+  padding: 25px;
+  color: #525252;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #f7f7f7;
+  border: 1px solid #c5c5c5;
+}
+.leaderboard-results tbody td {
+  border: 1px solid #c5c5c5;
+  padding: 15px 80px 15px 20px;
+  font-size: 16px;
+}
+.leaderboard-results tbody tr {
+  color: #525252;
+}
+
+.user-container {
+  width: 70%;
+}
+
+.display-avatar-username {
+  display: flex;
+  flex-direction: row;
+}
+
+.show-amount-of-polls {
+  width: 15%;
+}
+
+.display-avatar {
+  height: 30px;
+  margin: 5px;
+  border-radius: 25px;
+  padding-right: 10px;
+}
+
+.user-username {
+  padding-top: 5px;
+  font-size: 14px;
 }

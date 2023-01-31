@@ -27,7 +27,7 @@ let users = {
         id: 'mtsamis',
         password: 'xyz123',
         name: 'Mike Tsamis',
-        avatarURL: null,
+        avatarURL: "https://tylermcginnis.com/would-you-rather/tyler.jpg",
         answers: {
             "xj352vofupe1dqz9emx13r": 'optionOne',
             "vthrdm985a262al8qx3do": 'optionTwo',
@@ -39,7 +39,7 @@ let users = {
         id: 'zoshikanlu',
         password: 'pass246',
         name: 'Zenobia Oshikanlu',
-        avatarURL: null,
+        avatarURL: "https://tylermcginnis.com/would-you-rather/tyler.jpg",
         answers: {
             "xj352vofupe1dqz9emx13r": 'optionOne',
         },

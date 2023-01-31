@@ -7,6 +7,7 @@ import Home from './Home';
 import Poll from './Poll';
 import NotFound from './NotFound';
 import { initData } from '../actions/calls';
+import NewPoll from './NewPoll';
 
 function App({ dispatch, isLoading }) {
   const { state } = useLocation();
@@ -26,6 +27,7 @@ function App({ dispatch, isLoading }) {
         <Route path="/" exact element={<Home userId={userId} />} />
         <Route path="/leaderboard" element={<Leaderboard userId={userId} />} />
         <Route path="/questions/:question_id" element={<Poll userId={userId} />} />
+        <Route path="/add" element={<NewPoll userId={userId} />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </div>

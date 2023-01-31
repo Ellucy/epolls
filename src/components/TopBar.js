@@ -23,11 +23,11 @@ function TopBar({ activeUser }) {
                         Leaderboard
                     </Link>
                     <Link
-                        to="/new"
+                        to="/add"
                         state={{ userId }}
-                        className={pathname === '/new' ? 'link-active' : 'link-not-active'}
+                        className={pathname === '/add' ? 'link-active' : 'link-not-active'}
                     >
-                        New
+                        Add
                     </Link>
                 </div>
                 <div className='flex-row'>
