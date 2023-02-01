@@ -54,7 +54,6 @@ function NewPoll({ dispatch }) {
                                         author: userId,
                                     }))
                                 .then(() => {
-                                    alert("Saved!");
                                     navigate("/", { state: { userId } });
                                 })
                         }}

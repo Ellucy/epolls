@@ -39,7 +39,7 @@ let users = {
         id: 'zoshikanlu',
         password: 'pass246',
         name: 'Zenobia Oshikanlu',
-        avatarURL: "https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375__340.png",
+        avatarURL: "https://static.vecteezy.com/system/resources/previews/004/773/704/original/a-girl-s-face-with-a-beautiful-smile-a-female-avatar-for-a-website-and-social-network-vector.jpg",
         answers: {
             "xj352vofupe1dqz9emx13r": 'optionOne',
         },

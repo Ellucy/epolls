@@ -45,22 +45,23 @@ function Login({ users }) {
                         <img src={selectedUser.avatarURL} alt={`Avatar of ${selectedUser.id}`} className="big-avatar" />
                     )}
                 </div>
-                {selectedUserId !== "none" && (
-                    <button
-                        className="submit-button"
-                        onClick={() => {
-                            navigate(
-                                pathname,
-                                {
-                                    state: { userId: selectedUserId },
-                                    replace: true
-                                }
-                            );
-                        }}
-                    >
-                        Submit
-                    </button>
-                )}
+                {selectedUserId !== "none" ?
+                    (
+                        <button
+                            className="submit-button"
+                            onClick={() => {
+                                navigate(
+                                    pathname,
+                                    {
+                                        state: { userId: selectedUserId },
+                                        replace: true
+                                    }
+                                );
+                            }}
+                        >
+                            Submit
+                        </button>
+                    ) : null}
 
             </div>
         </div >

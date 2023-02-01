@@ -88,6 +88,7 @@
 .avatar-box {
   display: flex;
   align-items: center;
+  padding-right: 4px;
 }
 
 .poll-question {
@@ -164,7 +165,7 @@
 
 .avatar-small {
   height: 30px;
-  border-radius: 25px;
+  border-radius: 50%;
   margin: 10px;
 }
 
@@ -246,7 +247,7 @@
   height: 30px;
   margin: 5px;
   border-radius: 50%;
-  padding-right: 10px;
+  margin-right: 10px;
 }
 
 .user-username {
