@@ -2,7 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { connect } from 'react-redux';
 
-function Login({ users }) {
+export function Login({ users }) {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const [selectedUserId, setSelectedUserId] = useState("none");
@@ -22,6 +22,7 @@ function Login({ users }) {
             <div className="signin-container">
                 <div className="login-header">Employee Polls</div>
                 <select
+                    data-testid="select-user"
                     value={selectedUserId}
                     className="login-padding10"
                     onChange={(e) => {
@@ -48,6 +49,7 @@ function Login({ users }) {
                 {selectedUserId !== "none" ?
                     (
                         <button
+                            data-testid="submit-button"
                             className="submit-button"
                             onClick={() => {
                                 navigate(
