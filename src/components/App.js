@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { useEffect } from "react";
-import { useLocation, Routes, Route } from 'react-router-dom';
+import { useLocation, Routes, Route, useNavigate } from 'react-router-dom';
 import '../App.css';
 import Leaderboard from './Leaderboard';
 import Home from './Home';
@@ -10,11 +10,13 @@ import { initData } from '../actions/calls';
 import NewPoll from './NewPoll';
 
 function App({ dispatch, isLoading }) {
-  const { state } = useLocation();
+  const { state, pathname } = useLocation();
   const userId = state?.userId;
 
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(initData())
+    navigate(pathname, {});
   }, []);
 
   if (isLoading) {
