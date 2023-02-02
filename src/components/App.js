@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { useEffect } from "react";
-import { useLocation, useParams, Routes, Route } from 'react-router-dom';
+import { useLocation, Routes, Route } from 'react-router-dom';
 import '../App.css';
 import Leaderboard from './Leaderboard';
 import Home from './Home';

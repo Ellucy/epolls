@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
-import WithAuthCheck from './WithAuthCheck'
+import WithAuthCheck from './WithAuthCheck';
 import TopBar from './TopBar';
 import { saveQuestionAnswer } from '../actions/calls';
 import NotFound from './NotFound';
