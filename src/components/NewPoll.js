@@ -46,16 +46,18 @@ function NewPoll({ dispatch }) {
                         className="submit-button"
                         role="button"
                         onClick={() => {
-                            dispatch(
-                                saveQuestion(
-                                    {
-                                        optionOneText,
-                                        optionTwoText,
-                                        author: userId,
-                                    }))
-                                .then(() => {
-                                    navigate("/", { state: { userId } });
-                                })
+                            if (optionOneText.length && optionTwoText.length) {
+                                dispatch(
+                                    saveQuestion(
+                                        {
+                                            optionOneText,
+                                            optionTwoText,
+                                            author: userId,
+                                        }))
+                                    .then(() => {
+                                        navigate("/", { state: { userId } });
+                                    });
+                            }
                         }}
                     >
                         Submit
